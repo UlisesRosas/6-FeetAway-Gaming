@@ -26,11 +26,6 @@ fetch(testAPi)
   })
   .then(function (response) {
     console.log(response);
-    // var loopCount ; 
-
-    // if ( response.length > 50 ){
-    //   loopCount = 50 
-    // } else loopCount = response.length; 
 
     for (var i = 0; i < 10; i++) {
       // Display in HTML
@@ -52,6 +47,7 @@ function generateCarouselEl(responseItem, index) {
   var imgItem = document.createElement('img');
   imgItem.setAttribute("src", responseItem.thumbnail);
   imgItem.setAttribute("alt", responseItem.title);
+
   console.log("Image created ", imgItem, index);
 
 
