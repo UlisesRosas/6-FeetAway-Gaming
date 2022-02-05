@@ -1,22 +1,5 @@
 var carouselImgEl = document.getElementById('free-to-play-carousel');
 
-
-//  async function searchGames(category) {
-
-//  let response = await fetch(`https://www.freetogame.com/api/games?platform=pc&category=${category}&sort-by=relavance`, {
-//  	"method": "GET",
-//  	"headers": {
- 		// "x-rapidapi-host": "free-to-play-games-database.p.rapidapi.com",
-//  		// "x-rapidapi-key": "7762a46affmsh847d232c8c0054bp190086jsnefdc4c528d13",
-//  		"Access-Control-Allow-Origin": "*"
-//  	}
-//  })
-
-//  let res = await response.json()
-// console.log(response)
-// }
-
-// searchGames("shooter"); 
  
 const settings = {
 	"async": true,
@@ -30,7 +13,7 @@ const settings = {
 };
 // response from game api in jquery
 $.ajax(settings).done(function (response) {
-	console.log(response);
+	// console.log(response);
 	// choses first ten array of objects
 	for(i = 0; i <= 9; i++){
 	// gets the game url object from the asrray in to a variable
@@ -38,7 +21,7 @@ $.ajax(settings).done(function (response) {
 	
 	// gets the thumb nail object from the array in to a var
 	const gameThumbnail = response[i].thumbnail;
-	console.log(gameThumbnail);
+	// console.log(gameThumbnail);
 	// passing the two variables to the freeToPlayCarousel function
 	generateCarouselEl(gameThumbnail,gameUrl, response[i], i);
 
@@ -57,14 +40,14 @@ function generateCarouselEl(gameThumbnail, gameUrl, response, index) {
 	imgItem.setAttribute("src", gameThumbnail);
 	imgItem.setAttribute("alt", response.title);
 	imgItem.setAttribute("class", "image-width")
-	console.log(response.title)
+	// console.log(response.title)
 	var anchor = document.createElement("a");
 	anchor.setAttribute("href",gameUrl );
 	imgItem.appendChild(anchor);
-	console.log(gameUrl);
+	// console.log(gameUrl);
 
   
-	console.log("Image created ", imgItem, index);
+	// console.log("Image created ", imgItem, index);
   
   
 	var descriptionEL = document.createElement('div');
@@ -90,4 +73,15 @@ function generateCarouselEl(gameThumbnail, gameUrl, response, index) {
 	carouselImgEl.appendChild(carouselItem);
   };
 
+// function to handle drop doen form selection
+function dropDownSelection(){
+	console.log("dropdown menu was selected");
+	const dropDownSelection = $("#dropdown-form").find(":selected").val();
+	console.log(dropDownSelection);
+	// pass dropDown to the api request function
 
+	
+}
+
+// used change so that just the options trigger the event and not just clicking on the drop down
+$('#dropdown-form').on('change', dropDownSelection)
