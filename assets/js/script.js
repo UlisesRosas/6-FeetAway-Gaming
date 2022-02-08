@@ -12,14 +12,6 @@ fetch(testAPi, {
     "x-rapidapi-key": "e772096e1fmsh9c84bb7816b2116p110c5ajsnf16397425d73"
   }
 })
-  .then(response => {
-    console.log(response);
-  })
-  .catch(err => {
-    console.error(err);
-  });
-
-fetch(testAPi)
   .then(function (response) {
     // conver to JSON object
     return response.json();
@@ -27,7 +19,7 @@ fetch(testAPi)
   .then(function (response) {
     console.log(response);
 
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 20; i++) {
       // Display in HTML
       generateCarouselEl(response[i], i);
     }
@@ -37,13 +29,16 @@ fetch(testAPi)
   });
 
 function generateCarouselEl(responseItem, index) {
+
+  var gameLink = document.createElement('a');
+  gameLink.setAttribute("href", responseItem.game_url)
+
   var carouselItem = document.createElement('div');
   carouselItem.classList.add('carousel-item');
   //only the first slide is set to active class
   if (index === 0) {
     carouselItem.classList.add('active');
   }
-
   var imgItem = document.createElement('img');
   imgItem.setAttribute("src", responseItem.thumbnail);
   imgItem.setAttribute("alt", responseItem.title);
@@ -65,9 +60,12 @@ function generateCarouselEl(responseItem, index) {
   descriptionEL.append(carouselCaption);
   descriptionEL.append(shortDescription);
 
+  // append url to image 
+  gameLink.append(descriptionEL)
+
   //appending to img and div to carousel-item div 
   carouselItem.append(imgItem);
-  carouselItem.append(descriptionEL);
+  carouselItem.append(gameLink);
 
   //Append Carousel cards to main div CarouselImg 
   carouselImgEl.appendChild(carouselItem);
