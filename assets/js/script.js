@@ -185,7 +185,7 @@ initDisplay();
 var gApiUrl = "https://www.freetogame.com/api/games?=e772096e1fmsh9c84bb7816b2116p110c5ajsnf16397425d73";
 var testAPi = "https://free-to-play-games-database.p.rapidapi.com/api/games";
 
-var carouselImgEl = document.getElementById('carouselImg');
+var carouselImgEl2 = document.getElementById('carouselImg');
 var testImgEl = document.getElementById('myImgs');
 
 
@@ -251,5 +251,5 @@ function generateCarouselEl(responseItem, index) {
   carouselItem.append(gameLink);
 
   //Append Carousel cards to main div CarouselImg 
-  carouselImgEl.appendChild(carouselItem);
+  carouselImgEl2.appendChild(carouselItem);
 };
