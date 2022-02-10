@@ -1,8 +1,5 @@
 const covidApi = "https://covid-19-statistics.p.rapidapi.com/reports?iso=USA&region_name=US";
 let selectOptionsEl = $("#dropdownStates")
-const states = ["Alabama", "Idaho", "Wisconsin"];
-
-
 
 fetch(covidApi, {
 	"method": "GET",
