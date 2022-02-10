@@ -1,4 +1,4 @@
-var covidApi = "https://covid-19-statistics.p.rapidapi.com/reports?iso=USA&region_name=US";
+const covidApi = "https://covid-19-statistics.p.rapidapi.com/reports?iso=USA&region_name=US";
 let selectOptionsEl = $("#dropdownStates")
 const states = ["Alabama", "Idaho", "Wisconsin"];
 
@@ -12,12 +12,13 @@ fetch(covidApi, {
 	}
 })
 .then(function (response) {
-	// request wasa successful
+	// request was successful
 	if (response.ok) {
 		response.json()
 			.then(function (data) {
 				// display on HTML 
 				generateOptions(data, data);
+                console.log(data);
 			});
 	}
 })
@@ -26,9 +27,8 @@ fetch(covidApi, {
 });
 
 function generateOptions(apiData, arrayData){
-	console.log(arrayData.data.length);
-
-	for (var i = 0; i < arrayData.data.length; i++){
+	console.log(apiData);
+	for (let i = 0; i < arrayData.data.length; i++){
 		const optionItem =  document.createElement('option')
 		optionItem.textContent =  arrayData.data[i].region.province;
 
