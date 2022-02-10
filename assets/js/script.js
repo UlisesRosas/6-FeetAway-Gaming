@@ -29,7 +29,7 @@ fetch(testAPi, {
   });
 
 function generateCarouselEl(responseItem, index) {
-
+  // create anchor tag
   var gameLink = document.createElement('a');
   gameLink.setAttribute("href", responseItem.game_url)
 
@@ -44,7 +44,6 @@ function generateCarouselEl(responseItem, index) {
   imgItem.setAttribute("alt", responseItem.title);
 
   console.log("Image created ", imgItem, index);
-
 
   var descriptionEL = document.createElement('div');
   descriptionEL.setAttribute("class", "carousel-caption d-none d-md-block");
