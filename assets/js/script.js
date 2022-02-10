@@ -127,6 +127,9 @@ function dropDownSelection(){
 	// get value from option to change the API endpoint
 	const dropDownSelection = $("#dropdown-form").find(":selected").val();
 	// console.log(dropDownSelection);
+	// saves chosen option id
+	let saveGenreId = $(this).children("option").attr('id');
+	console.log(saveGenreId);
 	// pass dropDownSelection to the api request function
 	apiFreeToPlayRequest(dropDownSelection);
 
