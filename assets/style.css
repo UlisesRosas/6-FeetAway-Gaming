@@ -1,0 +1,12 @@
+/* section2 style start */
+.select-dropdown {
+    width: 100%;
+} 
+.image-width {
+    width: 100%;
+}
+/* adds depth to the carousel */
+.back-shadow {
+    box-shadow: 0 20px 15px 0 rgb(0 0 0 / 30%), 0 2px 10px 0 rgb(0 0 0 / 15%);
+}
+/* section2 style end */
