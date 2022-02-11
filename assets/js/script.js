@@ -41,7 +41,7 @@ let text = "mmorpg shooter pvp mmofps strategy moba racing sports social open-wo
 // turned text in to array
 const valueGenreArrey = text.split(" ");
 
-// makes the drop down dynamic
+// makes the drop down options dynamic
 function dropdownMenueMaker() {
 console.log(valueGenreArrey);
 
@@ -87,7 +87,8 @@ dropdownMenueMaker();
 		//    console.log(carouselItems);
 
 		// try to remove the active classthat is given to the firsat item so that they dont conflict
-		$(".carousel-item").removeClass("active");
+		//  $(".carousel-item").removeClass("active");
+		$("#free-to-play-carousel").empty();
 		 // choses first ten array of objects
 		 for (let i = 0; i < Math.min(response.length, 10); i++) {
 			 // gets the game url object from the array in to a variable
@@ -106,15 +107,18 @@ dropdownMenueMaker();
 
  };
 
+// generates carousel for section2
 function generateFreeToPlayCarouselEl(gameThumbnail, gameUrl, response, index) {
 	var gameLink = document.createElement('a');
 	gameLink.setAttribute("href", gameUrl);
 
-	var carouselItem = document.createElement('div');
-	carouselItem.classList.add('carousel-item');
+	var carouselItem1 = document.createElement('div');
+	carouselItem1.classList.add('carousel-item');
 	//only the first slide is set to active class
 	if (index === 0) {
-	  carouselItem.classList.add('active');
+	  carouselItem1.classList.add('active');
+	  carouselItem1.setAttribute("id", "free-to-play-carousel");
+	  console.log(carouselItem1);
 	}
   
 	var imgItem = document.createElement('img');
@@ -148,23 +152,23 @@ function generateFreeToPlayCarouselEl(gameThumbnail, gameUrl, response, index) {
 	gameLink.append(descriptionEL);
   
 	//appending to img and div to carousel-item div 
-	carouselItem.append(imgItem);
+	carouselItem1.append(imgItem);
 	// carouselItem.append(descriptionEL);
-	carouselItem.append(gameLink);
+	carouselItem1.append(gameLink);
   
 	//Append Carousel cards to main div CarouselImg 
-	carouselImgEl.appendChild(carouselItem);
+	carouselImgEl.appendChild(carouselItem1);
 };
 
-// function to handle drop doen form selection
+// function to handle drop down form selection
 function dropDownSelection(){
 	// console.log("dropdown menu was selected");
 	// get value from option to change the API endpoint
 	const dropDownSelection = $("#dropdown-form").find(":selected").val();
+
+	localStorage.setItem("game-history", dropDownSelection);
 	// console.log(dropDownSelection);
 	// saves chosen option id
-	let saveGenreId = $(this).children("option").attr('id');
-	console.log(saveGenreId);
 	// pass dropDownSelection to the api request function
 	apiFreeToPlayRequest(dropDownSelection);
 
@@ -172,7 +176,13 @@ function dropDownSelection(){
 
 // makes the defasult api response to display shooter genre options
 function initDisplay() {
-	apiFreeToPlayRequest("shooter");
+	let pizza = localStorage.getItem("game-history")
+	console.log(pizza)
+	if(pizza === null){
+		apiFreeToPlayRequest("shooter");
+	}else {
+		apiFreeToPlayRequest(pizza);
+	}
 }
 
 // used change so that just the options trigger the event and not just clicking on the drop down
@@ -211,9 +221,9 @@ fetch(testAPi, {
   .catch(function (error) {
     console.log("error")
   });
-
+  
 function generateCarouselEl(responseItem, index) {
-  // create anchor tag
+	// create anchor tag
   var gameLink = document.createElement('a');
   gameLink.setAttribute("href", responseItem.game_url)
 
