@@ -23,7 +23,7 @@ fetch(covidApi, {
 	console.error(err);
 });
 
-function generateOptions(apiData, arrayData){
+function generateOptions(apiData, arrayData){ 
 	console.log(apiData);
 	for (let i = 0; i < arrayData.data.length; i++){
 		const optionItem =  document.createElement('option')
@@ -52,7 +52,7 @@ for (let i = 0; i < valueGenreArrey.length; i++) {
 	// .text(valueGenreArrey[i]);
 	dropdownOptionEl.attr("value",valueGenreArrey[i])
 	// dropdownOptionEl.val(valueGenreArrey[i]);
-	console.log(valueGenreArrey[i]);
+	//console.log(valueGenreArrey[i]);
 	
 	dropdownOptionEl.text(valueGenreArrey[i]);
 
@@ -205,7 +205,7 @@ fetch(testAPi, {
   .then(function (response) {
     console.log(response);
 
-    for (var i = 0; i < 20; i++) {
+    for (var i = 0; i < 50; i++) {
       // Display in HTML
       generateCarouselEl(response[i], i);
     }
