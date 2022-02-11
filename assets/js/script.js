@@ -66,7 +66,6 @@ dropdownMenueMaker();
 
 // api request function
  function apiFreeToPlayRequest(dropDownSelection) {
-	// console.log(dropDownSelection);
 	
 	const settings = {
 		 "async": true,
@@ -78,28 +77,18 @@ dropdownMenueMaker();
 			 "x-rapidapi-key": "7762a46affmsh847d232c8c0054bp190086jsnefdc4c528d13"
 		 }
 	 };
-	//  console.log(settings.url);
+
 	 // response from game api in jquery
 	 $.ajax(settings).done(function (response) {
-		//  console.log(response);
-		//  clear out the carousel items by targetting free-to-play-carousel 
-		//    let carouselItems = document.querySelector(".carousel-item");
-		//    console.log(carouselItems);
-
-		// try to remove the active classthat is given to the firsat item so that they dont conflict
-		//  $(".carousel-item").removeClass("active");
+		// removes the previous carousel so that it wont stack and keep adding more on top of each other
 		$("#free-to-play-carousel").empty();
 		 // choses first ten array of objects
 		 for (let i = 0; i < Math.min(response.length, 10); i++) {
 			 // gets the game url object from the array in to a variable
 			 const gameUrl = response[i].game_url;
-			//  console.log(response[i]);
-
 			 // gets the thumb nail object from the array in to a var
 			 const gameThumbnail = response[i].thumbnail;
-			 // console.log(gameThumbnail);
 			 // passing the two variables to the freeToPlayCarousel function
-
 			 generateFreeToPlayCarouselEl(gameThumbnail, gameUrl, response[i], i);
 
 		 }
@@ -120,28 +109,32 @@ function generateFreeToPlayCarouselEl(gameThumbnail, gameUrl, response, index) {
 	  carouselItem1.setAttribute("id", "free-to-play-carousel");
 	  console.log(carouselItem1);
 	}
-  
+   // creating the image element    
 	var imgItem = document.createElement('img');
+	// setting the atributes to API response data
 	imgItem.setAttribute("src", gameThumbnail);
 	imgItem.setAttribute("alt", response.title);
 	imgItem.setAttribute("class", "image-width");
-	// console.log(response.title)
+	// creating anchor element
 	var anchor = document.createElement("a");
+	// setting anchor attribute to be API response url
 	anchor.setAttribute("href",gameUrl );
+	// appends the attributes to the anchor
 	imgItem.appendChild(anchor);
-	// console.log(gameUrl);
 
-	// console.log("Image created ", imgItem, index);
-  
+	// create a div element
 	var descriptionEL = document.createElement('div');
+	// giving the new div a class 
 	descriptionEL.setAttribute("class", "carousel-caption d-none d-md-block");
 	 
-  
+  	//creates heading   
 	var carouselCaption = document.createElement('h5');
+	// adds api title response
 	carouselCaption.textContent = response.title;
 	
-  
+    // create p element
 	var shortDescription = document.createElement('p');
+	// giving the p element a short discription api info
 	shortDescription.textContent = response.short_description;
   
 	//append to the div carousel-caption
@@ -162,22 +155,21 @@ function generateFreeToPlayCarouselEl(gameThumbnail, gameUrl, response, index) {
 
 // function to handle drop down form selection
 function dropDownSelection(){
-	// console.log("dropdown menu was selected");
 	// get value from option to change the API endpoint
 	const dropDownSelection = $("#dropdown-form").find(":selected").val();
-
+	// saved the drop down selection to local storage
 	localStorage.setItem("game-history", dropDownSelection);
-	// console.log(dropDownSelection);
-	// saves chosen option id
-	// pass dropDownSelection to the api request function
+	// sends value of chosen option to apiFreeToPlayRequest
 	apiFreeToPlayRequest(dropDownSelection);
 
 }
 
 // makes the defasult api response to display shooter genre options
 function initDisplay() {
+	// retrieving saved item from local storage
 	let pizza = localStorage.getItem("game-history")
 	console.log(pizza)
+	// seeting a default case for the api url endpoint
 	if(pizza === null){
 		apiFreeToPlayRequest("shooter");
 	}else {
