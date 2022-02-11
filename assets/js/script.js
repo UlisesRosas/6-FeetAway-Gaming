@@ -41,7 +41,7 @@ let text = "mmorpg shooter pvp mmofps strategy moba racing sports social open-wo
 // turned text in to array
 const valueGenreArrey = text.split(" ");
 
-// makes the drop down dynamic
+// makes the drop down options dynamic
 function dropdownMenueMaker() {
 console.log(valueGenreArrey);
 
@@ -66,7 +66,6 @@ dropdownMenueMaker();
 
 // api request function
  function apiFreeToPlayRequest(dropDownSelection) {
-	// console.log(dropDownSelection);
 	
 	const settings = {
 		 "async": true,
@@ -78,27 +77,18 @@ dropdownMenueMaker();
 			 "x-rapidapi-key": "7762a46affmsh847d232c8c0054bp190086jsnefdc4c528d13"
 		 }
 	 };
-	//  console.log(settings.url);
+
 	 // response from game api in jquery
 	 $.ajax(settings).done(function (response) {
-		//  console.log(response);
-		//  clear out the carousel items by targetting free-to-play-carousel 
-		//    let carouselItems = document.querySelector(".carousel-item");
-		//    console.log(carouselItems);
-
-		// try to remove the active classthat is given to the firsat item so that they dont conflict
-		$(".carousel-item").removeClass("active");
+		// removes the previous carousel so that it wont stack and keep adding more on top of each other
+		$("#free-to-play-carousel").empty();
 		 // choses first ten array of objects
 		 for (let i = 0; i < Math.min(response.length, 10); i++) {
 			 // gets the game url object from the array in to a variable
 			 const gameUrl = response[i].game_url;
-			//  console.log(response[i]);
-
 			 // gets the thumb nail object from the array in to a var
 			 const gameThumbnail = response[i].thumbnail;
-			 // console.log(gameThumbnail);
 			 // passing the two variables to the freeToPlayCarousel function
-
 			 generateFreeToPlayCarouselEl(gameThumbnail, gameUrl, response[i], i);
 
 		 }
@@ -106,38 +96,45 @@ dropdownMenueMaker();
 
  };
 
+// generates carousel for section2
 function generateFreeToPlayCarouselEl(gameThumbnail, gameUrl, response, index) {
 	var gameLink = document.createElement('a');
 	gameLink.setAttribute("href", gameUrl);
 
-	var carouselItem = document.createElement('div');
-	carouselItem.classList.add('carousel-item');
+	var carouselItem1 = document.createElement('div');
+	carouselItem1.classList.add('carousel-item');
 	//only the first slide is set to active class
 	if (index === 0) {
-	  carouselItem.classList.add('active');
+	  carouselItem1.classList.add('active');
+	  carouselItem1.setAttribute("id", "free-to-play-carousel");
+	  console.log(carouselItem1);
 	}
-  
+   // creating the image element    
 	var imgItem = document.createElement('img');
+	// setting the atributes to API response data
 	imgItem.setAttribute("src", gameThumbnail);
 	imgItem.setAttribute("alt", response.title);
 	imgItem.setAttribute("class", "image-width");
-	// console.log(response.title)
+	// creating anchor element
 	var anchor = document.createElement("a");
+	// setting anchor attribute to be API response url
 	anchor.setAttribute("href",gameUrl );
+	// appends the attributes to the anchor
 	imgItem.appendChild(anchor);
-	// console.log(gameUrl);
 
-	// console.log("Image created ", imgItem, index);
-  
+	// create a div element
 	var descriptionEL = document.createElement('div');
+	// giving the new div a class 
 	descriptionEL.setAttribute("class", "carousel-caption d-none d-md-block");
 	 
-  
+  	//creates heading   
 	var carouselCaption = document.createElement('h5');
+	// adds api title response
 	carouselCaption.textContent = response.title;
 	
-  
+    // create p element
 	var shortDescription = document.createElement('p');
+	// giving the p element a short discription api info
 	shortDescription.textContent = response.short_description;
   
 	//append to the div carousel-caption
@@ -148,31 +145,36 @@ function generateFreeToPlayCarouselEl(gameThumbnail, gameUrl, response, index) {
 	gameLink.append(descriptionEL);
   
 	//appending to img and div to carousel-item div 
-	carouselItem.append(imgItem);
+	carouselItem1.append(imgItem);
 	// carouselItem.append(descriptionEL);
-	carouselItem.append(gameLink);
+	carouselItem1.append(gameLink);
   
 	//Append Carousel cards to main div CarouselImg 
-	carouselImgEl.appendChild(carouselItem);
+	carouselImgEl.appendChild(carouselItem1);
 };
 
-// function to handle drop doen form selection
+// function to handle drop down form selection
 function dropDownSelection(){
-	// console.log("dropdown menu was selected");
 	// get value from option to change the API endpoint
 	const dropDownSelection = $("#dropdown-form").find(":selected").val();
-	// console.log(dropDownSelection);
-	// saves chosen option id
-	let saveGenreId = $(this).children("option").attr('id');
-	console.log(saveGenreId);
-	// pass dropDownSelection to the api request function
+	// saved the drop down selection to local storage
+	localStorage.setItem("game-history", dropDownSelection);
+	// sends value of chosen option to apiFreeToPlayRequest
 	apiFreeToPlayRequest(dropDownSelection);
 
 }
 
 // makes the defasult api response to display shooter genre options
 function initDisplay() {
-	apiFreeToPlayRequest("shooter");
+	// retrieving saved item from local storage
+	let pizza = localStorage.getItem("game-history")
+	console.log(pizza)
+	// seeting a default case for the api url endpoint
+	if(pizza === null){
+		apiFreeToPlayRequest("shooter");
+	}else {
+		apiFreeToPlayRequest(pizza);
+	}
 }
 
 // used change so that just the options trigger the event and not just clicking on the drop down
@@ -211,9 +213,9 @@ fetch(testAPi, {
   .catch(function (error) {
     console.log("error")
   });
-
+  
 function generateCarouselEl(responseItem, index) {
-  // create anchor tag
+	// create anchor tag
   var gameLink = document.createElement('a');
   gameLink.setAttribute("href", responseItem.game_url)
 
