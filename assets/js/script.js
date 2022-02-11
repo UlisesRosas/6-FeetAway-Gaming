@@ -255,3 +255,7 @@ function generateCarouselEl(responseItem, index) {
   //Append Carousel cards to main div CarouselImg 
   carouselImgEl2.appendChild(carouselItem);
 };
+// prevent subcribe button from page refresh
+$("#email").click(function (event) {
+ event.prevent.default()
+});
