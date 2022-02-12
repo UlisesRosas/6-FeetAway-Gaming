@@ -71,7 +71,7 @@ dropdownMenueMaker();
 	const settings = {
 		 "async": true,
 		 "crossDomain": true,
-		 "url": `https://free-to-play-games-database.p.rapidapi.com/api/games?category=${dropDownSelection}!`,
+		 "url": `https://free-to-play-games-database.p.rapidapi.com/api/games?category=${dropDownSelection}`,
 		 "method": "GET",
 		 "headers": {
 			 "x-rapidapi-host": "free-to-play-games-database.p.rapidapi.com",
