@@ -20,7 +20,8 @@ fetch(covidApi, {
 	}
 })
 .catch(err => {
-	console.error(err);
+	console.error(err)
+	
 });
 
 function generateOptions(apiData, arrayData){ 
@@ -108,7 +109,6 @@ function generateFreeToPlayCarouselEl(gameThumbnail, gameUrl, response, index) {
 	if (index === 0) {
 	  carouselItem1.classList.add('active');
 	  carouselItem1.setAttribute("id", "free-to-play-carousel");
-	  console.log(carouselItem1);
 	}
    // creating the image element    
 	var imgItem = document.createElement('img');
@@ -158,14 +158,14 @@ function generateFreeToPlayCarouselEl(gameThumbnail, gameUrl, response, index) {
 function dropDownSelection(){
 	// get value from option to change the API endpoint
 	const dropDownSelection = $("#dropdown-form").find(":selected").val();
-	// saved the drop down selection to local storage
+	// saved the drop down selection to local storage. Created arbitrary value called game-history as the key
 	localStorage.setItem("game-history", dropDownSelection);
 	// sends value of chosen option to apiFreeToPlayRequest
 	apiFreeToPlayRequest(dropDownSelection);
 
 }
 
-// makes the defasult api response to display shooter genre options
+// makes the default api response to display shooter genre options
 function initDisplay() {
 	// retrieving saved item from local storage
 	let pizza = localStorage.getItem("game-history")
@@ -173,7 +173,7 @@ function initDisplay() {
 	// seeting a default case for the api url endpoint
 	if(pizza === null){
 		apiFreeToPlayRequest("shooter");
-	}else {
+	} else {
 		apiFreeToPlayRequest(pizza);
 	}
 }
@@ -213,7 +213,32 @@ fetch(testAPi, {
   })
   .catch(function (error) {
     console.log("error")
+	
+	// make function call passing error
+	generateModal(error)
   });
+
+//   Modal generating function
+function generateModal(error) {
+	// creates the modal when there is an error
+	const popupContent = $('<div>').addClass('popup-content modal-content');
+	$('.popup-container').append(popupContent);
+	// creates div With a class of modalheader
+	const popupHeadingContainer = $('<div>').addClass('modal-header');
+	$(popupContent).append(popupHeadingContainer);
+
+	const popupHeading = $('<h2>').text(error);
+	$(popupHeadingContainer).append(popupHeading);
+
+	const modalTextContainer = $('<div>').addClass('modal-body');
+	$(popupContent).append(modalTextContainer);
+
+	const popupText = $('<p>').text("Something went wrong loading this part of the page.");
+	$(modalTextContainer).append(popupText);
+
+	const popupFooter = $('<div>').addClass('modal-footer');
+	$(popupContent).append(popupFooter);
+}
   
 function generateCarouselEl(responseItem, index) {
 	// create anchor tag
