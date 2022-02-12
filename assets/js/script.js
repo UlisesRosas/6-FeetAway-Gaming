@@ -100,6 +100,7 @@ dropdownMenueMaker();
 function generateFreeToPlayCarouselEl(gameThumbnail, gameUrl, response, index) {
 	var gameLink = document.createElement('a');
 	gameLink.setAttribute("href", gameUrl);
+	gameLink.setAttribute("target", "_blank");
 
 	var carouselItem1 = document.createElement('div');
 	carouselItem1.classList.add('carousel-item');
@@ -218,6 +219,7 @@ function generateCarouselEl(responseItem, index) {
 	// create anchor tag
   var gameLink = document.createElement('a');
   gameLink.setAttribute("href", responseItem.game_url)
+  gameLink.setAttribute("target", "_blank");
 
   var carouselItem = document.createElement('div');
   carouselItem.classList.add('carousel-item');
@@ -255,7 +257,9 @@ function generateCarouselEl(responseItem, index) {
   //Append Carousel cards to main div CarouselImg 
   carouselImgEl2.appendChild(carouselItem);
 };
+
 // prevent subcribe button from page refresh
 $("#email").click(function (event) {
  event.prevent.default()
 });
+
