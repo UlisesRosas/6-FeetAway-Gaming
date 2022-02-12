@@ -126,7 +126,7 @@ function generateFreeToPlayCarouselEl(gameThumbnail, gameUrl, response, index) {
 	// create a div element
 	var descriptionEL = document.createElement('div');
 	// giving the new div a class 
-	descriptionEL.setAttribute("class", "carousel-caption d-none d-md-block");
+	descriptionEL.setAttribute("class", "carousel-caption");
 	 
   	//creates heading   
 	var carouselCaption = document.createElement('h5');
@@ -220,6 +220,7 @@ function generateCarouselEl(responseItem, index) {
   var gameLink = document.createElement('a');
   gameLink.setAttribute("href", responseItem.game_url)
   gameLink.setAttribute("target", "_blank");
+  
 
   var carouselItem = document.createElement('div');
   carouselItem.classList.add('carousel-item');
@@ -234,7 +235,7 @@ function generateCarouselEl(responseItem, index) {
   console.log("Image created ", imgItem, index);
 
   var descriptionEL = document.createElement('div');
-  descriptionEL.setAttribute("class", "carousel-caption d-none d-md-block");
+  descriptionEL.setAttribute("class", "carousel-caption");
   //console.log("Div ", descriptionEL); 
 
   var carouselCaption = document.createElement('h5');
