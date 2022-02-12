@@ -20,7 +20,7 @@ fetch(covidApi, {
 	}
 })
 .catch(err => {
-	console.error(err)
+	console.log(err)
 	
 });
 
@@ -71,17 +71,24 @@ dropdownMenueMaker();
 	const settings = {
 		 "async": true,
 		 "crossDomain": true,
-		 "url": `https://free-to-play-games-database.p.rapidapi.com/api/games?category=${dropDownSelection}`,
+		 "url": `https://free-to-play-games-database.p.rapidapi.com/api/games?category=${dropDownSelection}!`,
 		 "method": "GET",
 		 "headers": {
 			 "x-rapidapi-host": "free-to-play-games-database.p.rapidapi.com",
 			 "x-rapidapi-key": "7762a46affmsh847d232c8c0054bp190086jsnefdc4c528d13"
-		 }
+		 }, 
+		 "error": function(error){
+			console.log(error.status);
+			generateModal(error.sttus);
+		},
 	 };
 
 	 // response from game api in jquery
-	 $.ajax(settings).done(function (response) {
+	 $.ajax(settings).done(function (response, status) {
 		// removes the previous carousel so that it wont stack and keep adding more on top of each other
+		console.log(status);
+		// console.log(error);
+		// console.log(status);
 		$("#free-to-play-carousel").empty();
 		 // choses first ten array of objects
 		 for (let i = 0; i < Math.min(response.length, 10); i++) {
@@ -213,10 +220,9 @@ fetch(testAPi, {
     }
   })
   .catch(function (error) {
-    console.log("error")
 	
 	// make function call passing error
-	generateModal(error)
+	generateModal(error);
   });
 
 //   Modal generating function
