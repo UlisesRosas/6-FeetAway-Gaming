@@ -110,6 +110,7 @@ function generateFreeToPlayCarouselEl(gameThumbnail, gameUrl, response, index) {
 	  carouselItem1.setAttribute("id", "free-to-play-carousel");
 	  console.log(carouselItem1);
 	}
+	
    // creating the image element    
 	var imgItem = document.createElement('img');
 	// setting the atributes to API response data
