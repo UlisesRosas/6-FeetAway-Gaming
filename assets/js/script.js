@@ -1,5 +1,6 @@
 const covidApi = "https://covid-19-statistics.p.rapidapi.com/reports?iso=USA&region_name=US";
 let selectOptionsEl = $("#dropdownStates")
+let statsEl = $("#covidStats");
 
 fetch(covidApi, {
 	"method": "GET",
@@ -37,6 +38,7 @@ function getCovid(state) {
 			response.json()
 			.then(function (data){
 				console.log(data, 38);
+				displayStats(data);
 			})
 		}
 	})
@@ -47,6 +49,7 @@ function selectedStateOnChange() {
 	console.log(selectedState);
 	getCovid(selectedState);
 
+	displayStats(selectedState);
 }
 
 function generateOptions(apiData, arrayData){ 
@@ -60,6 +63,33 @@ function generateOptions(apiData, arrayData){
 	}
 
 }
+
+function displayStats(stateData){
+
+	console.log(stateData);
+	
+	const statsListEl = document.createElement('ol');
+
+	const dateListEl = document.createElement('li');
+	dateListEl.textContent = "Date: " + stateData.data[0].date
+
+	const activeCasesEl = document.createElement('li');
+	activeCasesEl.textContent = "Active Cases:  " + stateData.data[0].active;
+
+	const deathRateEl = document.createElement('li');
+	deathRateEl.textContent = "Total Deaths:  " + stateData.data[0].deaths;
+
+	const fatalityRateEl = document.createElement('li');
+	fatalityRateEl.textContent = "Fatality Rate:  " + stateData.data[0].fatality_rate;
+
+	statsListEl.appendChild(dateListEl);
+	statsListEl.appendChild(activeCasesEl);
+	statsListEl.appendChild(deathRateEl);
+	statsListEl.appendChild(fatalityRateEl);
+	statsListEl.classList.add("covidStatsEl")
+	$(statsEl).append(statsListEl);
+}
+
 // **sectyion 2 start
 
 var carouselImgEl = document.getElementById('free-to-play-carousel');
@@ -284,7 +314,7 @@ function generateCarouselEl(responseItem, index) {
   imgItem.setAttribute("src", responseItem.thumbnail);
   imgItem.setAttribute("alt", responseItem.title);
 
-  console.log("Image created ", imgItem, index);
+  // console.log("Image created ", imgItem, index);
 
   var descriptionEL = document.createElement('div');
   descriptionEL.setAttribute("class", "carousel-caption");
