@@ -62,8 +62,8 @@ function generateOptions(apiData, arrayData){
 	}
 
 	$('#dropdownStates').change(function (){
-		refreshDiv()
-		displayStats()
+		refreshDiv();
+		displayStats();
 	});
 }
 
@@ -77,7 +77,8 @@ function displayStats(stateData){
 	const statsListEl = document.createElement('ol');
 
 	const dateListEl = document.createElement('li');
-	dateListEl.textContent = "Date: " + stateData.data[0].date
+	dateListEl.textContent = "Date: " + stateData.data[0].date;
+	console.log(stateData.data[0].date);
 
 	const activeCasesEl = document.createElement('li');
 	activeCasesEl.textContent = "Active Cases:  " + stateData.data[0].active;
