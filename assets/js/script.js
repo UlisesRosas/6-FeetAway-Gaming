@@ -49,7 +49,6 @@ function selectedStateOnChange() {
 	console.log(selectedState);
 	getCovid(selectedState);
 
-	displayStats(selectedState);
 }
 
 function generateOptions(apiData, arrayData){ 
@@ -63,14 +62,18 @@ function generateOptions(apiData, arrayData){
 	}
 
 	$('#dropdownStates').change(function (){
-		displayStats(arrayData)
+		refreshDiv()
+		displayStats()
 	});
 }
 
-function displayStats(stateData){
+function refreshDiv () {
+	$("#covidStats").empty();
+}
 
+function displayStats(stateData){
 	console.log(stateData);
-	
+
 	const statsListEl = document.createElement('ol');
 
 	const dateListEl = document.createElement('li');
