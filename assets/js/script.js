@@ -59,7 +59,10 @@ function generateOptions(apiData, arrayData){
 		$(selectOptionsEl).append(optionItem);
 	}
 
-}
+} 
+// will call selectStatesonCange function When dropdown is selected
+// $(selectOptionsEl).on('change', selectedStateOnChange)
+
 // **sectyion 2 start
 
 var carouselImgEl = document.getElementById('free-to-play-carousel');
