@@ -16,7 +16,7 @@ fetch(covidApi, {
 			.then(function (data) {
 				// display on HTML 
 				generateOptions(data, data);
-                console.log(data);
+              //  console.log(data);
 			});
 	}
 })
@@ -26,7 +26,7 @@ fetch(covidApi, {
 });
 
 function generateOptions(apiData, arrayData){ 
-	console.log(apiData);
+//	console.log(apiData);
 	for (let i = 0; i < arrayData.data.length; i++){
 		const optionItem =  document.createElement('option')
 		optionItem.textContent =  arrayData.data[i].region.province;
@@ -34,25 +34,29 @@ function generateOptions(apiData, arrayData){
 		$(selectOptionsEl).append(optionItem);
 	}
 
-	displayStats(arrayData);
+	$('#dropdownStates').change(function (){
+		displayStats(arrayData)
+	});
 }
 
 function displayStats(arrayData){
-	console.log(arrayData.data)
+
+	const covidArray = arrayData.data;
+	console.log(covidArray);
 	
 	const statsListEl = document.createElement('ol');
 
 	const dateListEl = document.createElement('li');
-	dateListEl.textContent = "Date: " + arrayData.data[0].date
+	dateListEl.textContent = "Date: " + covidArray[0].date
 
 	const activeCasesEl = document.createElement('li');
-	activeCasesEl.textContent = "Active Cases:  " + arrayData.data[0].active;
+	activeCasesEl.textContent = "Active Cases:  " + covidArray[0].active;
 
 	const deathRateEl = document.createElement('li');
-	deathRateEl.textContent = "Total Deaths:  " + arrayData.data[0].deaths;
+	deathRateEl.textContent = "Total Deaths:  " + covidArray[0].deaths;
 
 	const fatalityRateEl = document.createElement('li');
-	fatalityRateEl.textContent = "Fatality Rate:  " + arrayData.data[0].fatality_rate;
+	fatalityRateEl.textContent = "Fatality Rate:  " + covidArray[0].fatality_rate;
 
 	statsListEl.appendChild(dateListEl);
 	statsListEl.appendChild(activeCasesEl);
@@ -72,7 +76,7 @@ const valueGenreArrey = text.split(" ");
 
 // makes the drop down options dynamic
 function dropdownMenueMaker() {
-console.log(valueGenreArrey);
+// console.log(valueGenreArrey);
 
 for (let i = 0; i < valueGenreArrey.length; i++) {
 	const dropdownOptionEl = $("<option>");
@@ -198,7 +202,7 @@ function dropDownSelection(){
 function initDisplay() {
 	// retrieving saved item from local storage
 	let pizza = localStorage.getItem("game-history")
-	console.log(pizza)
+//	console.log(pizza)
 	// seeting a default case for the api url endpoint
 	if(pizza === null){
 		apiFreeToPlayRequest("shooter");
@@ -233,7 +237,7 @@ fetch(testAPi, {
     return response.json();
   })
   .then(function (response) {
-    console.log(response);
+    //  console.log(response);
 
     for (var i = 0; i < 50; i++) {
       // Display in HTML
@@ -286,7 +290,7 @@ function generateCarouselEl(responseItem, index) {
   imgItem.setAttribute("src", responseItem.thumbnail);
   imgItem.setAttribute("alt", responseItem.title);
 
-  console.log("Image created ", imgItem, index);
+  // console.log("Image created ", imgItem, index);
 
   var descriptionEL = document.createElement('div');
   descriptionEL.setAttribute("class", "carousel-caption");
