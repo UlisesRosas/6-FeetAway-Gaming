@@ -23,3 +23,7 @@ img {
 .covidStatsEl {
     list-style: none;
 }
+#stats-container {
+    width: 100%;
+    font-size: x-large;
+}

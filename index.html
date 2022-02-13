@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="./assets/style.css">
 </head>
 
-<body> 
+<body>
   <!--begin Nav Bar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light col-12">
     <div class="container-fluid">
@@ -36,7 +36,7 @@
           <li class="nav-item">
             <a class="nav-link"
               href="https://www.cdc.gov/coronavirus/2019-ncov/your-health/quarantine-isolation.html#anchor_1642600273484"
-              target= "_blank">
+              target="_blank">
               Stay Home
             </a>
           </li>
@@ -69,17 +69,16 @@
       <div class="col-sm-12 col-m-5 col-lg-5 mt-3 mb-5" id="section3-main-container">
         <select id="dropdownStates" class="btn btn-lg btn-light" onchange="selectedStateOnChange()"> </select>
         <!-- //Inserting divs for statistics here. -->
-        <div class="">
-          <div class="">
-            <div id = "covidStats" class="col-md-"></div>
-            <div class="col-md"></div>
-            <div class="col-md"></div>
-          </div>
+        <!-- begin stats container-->
+        <div id="statsCard" class="d-flex justify-content-center mt-3">
+          <div id="stats-container" class="card "></div>
+          <!--feed stats here-->
         </div>
       </div>
       <!--end section 3-->
 
-      <div class="col-1"></div><!--spacing div-->
+      <div class="col-1"></div>
+      <!--spacing div-->
 
       <!--begin section-2 carousel-->
 
@@ -166,7 +165,8 @@
       <!-- Section: Social media -->
       <section class="mb-4">
         <!-- Facebook -->
-        <a class="btn btn-outline-light btn-floating m-1" href="https://www.facebook.com/" target="_blank" role="button">
+        <a class="btn btn-outline-light btn-floating m-1" href="https://www.facebook.com/" target="_blank"
+          role="button">
           <i class="fab fa-facebook-f"></i></a>
 
         <!-- Twitter -->
@@ -178,20 +178,24 @@
           <i class="fab fa-google"></i></a>
 
         <!-- Instagram -->
-        <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/" target="_blank" role="button">
+        <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/" target="_blank"
+          role="button">
           <i class="fab fa-instagram"></i></a>
 
         <!-- Linkedin -->
-        <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/" target="_blank" role="button">
+        <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/" target="_blank"
+          role="button">
           <i class="fab fa-linkedin-in"></i></a>
 
         <!-- Github -->
-        <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/UlisesRosas/squintspiders-try-2" target="_blank" role="button">
+        <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/UlisesRosas/squintspiders-try-2"
+          target="_blank" role="button">
           <i class="fab fa-github"></i></a>
       </section>
       <!-- Section: Social media -->
 
-      <div class="d-none d-sm-block"> <!--footer media query div-->
+      <div class="d-none d-sm-block">
+        <!--footer media query div-->
         <!-- Section: Form -->
         <section class="">
           <form action="">
@@ -250,7 +254,7 @@
 
               <ul class="list-unstyled mb-0">
                 <li>
-                  <a href="#!" target="_blank"  class="text-white">Contact</a>
+                  <a href="#!" target="_blank" class="text-white">Contact</a>
                 </li>
                 <li>
                   <a href="#!" target="_blank" class="text-white">Beta Testing</a>
@@ -347,7 +351,8 @@
   <!-- Footer -->
 
   <!-- javascript link -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
   <script src="https://js.arcgis.com/4.22/init.js" data-amd="true"></script>
