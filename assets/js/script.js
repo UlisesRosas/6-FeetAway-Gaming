@@ -1,5 +1,6 @@
 const covidApi = "https://covid-19-statistics.p.rapidapi.com/reports?iso=USA&region_name=US";
 let selectOptionsEl = $("#dropdownStates")
+const covidStatsEl = $("#covidStats")
 
 fetch(covidApi, {
 	"method": "GET",
@@ -33,7 +34,34 @@ function generateOptions(apiData, arrayData){
 		$(selectOptionsEl).append(optionItem);
 	}
 
+	displayStats(arrayData);
 }
+
+function displayStats(arrayData){
+	console.log(arrayData.data)
+	
+	const statsListEl = document.createElement('ol');
+
+	const dateListEl = document.createElement('li');
+	dateListEl.textContent = "Date: " + arrayData.data[0].date
+
+	const activeCasesEl = document.createElement('li');
+	activeCasesEl.textContent = "Active Cases:  " + arrayData.data[0].active;
+
+	const deathRateEl = document.createElement('li');
+	deathRateEl.textContent = "Total Deaths:  " + arrayData.data[0].deaths;
+
+	const fatalityRateEl = document.createElement('li');
+	fatalityRateEl.textContent = "Fatality Rate:  " + arrayData.data[0].fatality_rate;
+
+	statsListEl.appendChild(dateListEl);
+	statsListEl.appendChild(activeCasesEl);
+	statsListEl.appendChild(deathRateEl);
+	statsListEl.appendChild(fatalityRateEl);
+	statsListEl.classList.add("covidStatsEl")
+	$(covidStatsEl).append(statsListEl);
+}
+
 // **sectyion 2 start
 
 var carouselImgEl = document.getElementById('free-to-play-carousel');
