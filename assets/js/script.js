@@ -1,6 +1,6 @@
 const covidApi = "https://covid-19-statistics.p.rapidapi.com/reports?iso=USA&region_name=US";
 let selectOptionsEl = $("#dropdownStates")
-const covidStatsEl = $("#covidStats")
+let statsEl = $("#covidStats");
 
 fetch(covidApi, {
 	"method": "GET",
@@ -25,10 +25,38 @@ fetch(covidApi, {
 	
 });
 
+function getCovid(state) {
+	console.log(state);
+	fetch(`https://covid-19-statistics.p.rapidapi.com/reports?region_province=${state}&iso=USA&region_name=US&q=US%20${state}`,{
+		"method": "GET",
+		"headers": {
+			"x-rapidapi-host": "covid-19-statistics.p.rapidapi.com",
+			"x-rapidapi-key": "e772096e1fmsh9c84bb7816b2116p110c5ajsnf16397425d73"
+		}
+	}).then(function (response) {
+		if(response.ok) {
+			response.json()
+			.then(function (data){
+				console.log(data, 38);
+				displayStats(data);
+			})
+		}
+	})
+}
+
+function selectedStateOnChange() {
+	let selectedState = selectOptionsEl[0].value;
+	console.log(selectedState);
+	getCovid(selectedState);
+
+	displayStats(selectedState);
+}
+
 function generateOptions(apiData, arrayData){ 
 //	console.log(apiData);
 	for (let i = 0; i < arrayData.data.length; i++){
 		const optionItem =  document.createElement('option')
+		optionItem.setAttribute('value', arrayData.data[i].region.province)
 		optionItem.textContent =  arrayData.data[i].region.province;
 
 		$(selectOptionsEl).append(optionItem);
@@ -39,31 +67,30 @@ function generateOptions(apiData, arrayData){
 	});
 }
 
-function displayStats(arrayData){
+function displayStats(stateData){
 
-	const covidArray = arrayData.data;
-	console.log(covidArray);
+	console.log(stateData);
 	
 	const statsListEl = document.createElement('ol');
 
 	const dateListEl = document.createElement('li');
-	dateListEl.textContent = "Date: " + covidArray[0].date
+	dateListEl.textContent = "Date: " + stateData.data[0].date
 
 	const activeCasesEl = document.createElement('li');
-	activeCasesEl.textContent = "Active Cases:  " + covidArray[0].active;
+	activeCasesEl.textContent = "Active Cases:  " + stateData.data[0].active;
 
 	const deathRateEl = document.createElement('li');
-	deathRateEl.textContent = "Total Deaths:  " + covidArray[0].deaths;
+	deathRateEl.textContent = "Total Deaths:  " + stateData.data[0].deaths;
 
 	const fatalityRateEl = document.createElement('li');
-	fatalityRateEl.textContent = "Fatality Rate:  " + covidArray[0].fatality_rate;
+	fatalityRateEl.textContent = "Fatality Rate:  " + stateData.data[0].fatality_rate;
 
 	statsListEl.appendChild(dateListEl);
 	statsListEl.appendChild(activeCasesEl);
 	statsListEl.appendChild(deathRateEl);
 	statsListEl.appendChild(fatalityRateEl);
 	statsListEl.classList.add("covidStatsEl")
-	$(covidStatsEl).append(statsListEl);
+	$(statsEl).append(statsListEl);
 }
 
 // **sectyion 2 start
