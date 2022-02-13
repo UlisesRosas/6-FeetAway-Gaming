@@ -24,10 +24,36 @@ fetch(covidApi, {
 	
 });
 
+function getCovid(state) {
+	console.log(state);
+	fetch(`https://covid-19-statistics.p.rapidapi.com/reports?region_province=${state}&iso=USA&region_name=US&q=US%20${state}`,{
+		"method": "GET",
+		"headers": {
+			"x-rapidapi-host": "covid-19-statistics.p.rapidapi.com",
+			"x-rapidapi-key": "e772096e1fmsh9c84bb7816b2116p110c5ajsnf16397425d73"
+		}
+	}).then(function (response) {
+		if(response.ok) {
+			response.json()
+			.then(function (data){
+				console.log(data, 38);
+			})
+		}
+	})
+}
+
+function selectedStateOnChange() {
+	let selectedState = selectOptionsEl[0].value;
+	console.log(selectedState);
+	getCovid(selectedState);
+
+}
+
 function generateOptions(apiData, arrayData){ 
 	console.log(apiData);
 	for (let i = 0; i < arrayData.data.length; i++){
 		const optionItem =  document.createElement('option')
+		optionItem.setAttribute('value', arrayData.data[i].region.province)
 		optionItem.textContent =  arrayData.data[i].region.province;
 
 		$(selectOptionsEl).append(optionItem);
