@@ -1,5 +1,6 @@
 const covidApi = "https://covid-19-statistics.p.rapidapi.com/reports?iso=USA&region_name=US";
 let selectOptionsEl = $("#dropdownStates")
+let statsEl = $("#stats-container");
 
 fetch(covidApi, {
 	"method": "GET",
@@ -15,25 +16,102 @@ fetch(covidApi, {
 			.then(function (data) {
 				// display on HTML 
 				generateOptions(data, data);
-                console.log(data);
+              //  console.log(data);
 			});
 	}
 })
 .catch(err => {
-	console.error(err)
+	console.log(err)
 	
 });
 
+function getCovid(state) {
+	console.log(state);
+	fetch(`https://covid-19-statistics.p.rapidapi.com/reports?region_province=${state}&iso=USA&region_name=US&q=US%20${state}`,{
+		"method": "GET",
+		"headers": {
+			"x-rapidapi-host": "covid-19-statistics.p.rapidapi.com",
+			"x-rapidapi-key": "e772096e1fmsh9c84bb7816b2116p110c5ajsnf16397425d73"
+		}
+	}).then(function (response) {
+		if(response.ok) {
+			console.log(response);
+			response.json()
+			.then(function (data){
+				console.log(data, 38);
+				displayStats(data);
+			})
+		}
+	})
+}
+
+function selectedStateOnChange() {
+	let selectedState = selectOptionsEl[0].value;
+	console.log(selectedState);
+	getCovid(selectedState);
+
+}
+
 function generateOptions(apiData, arrayData){ 
-	console.log(apiData);
+//	console.log(apiData);
 	for (let i = 0; i < arrayData.data.length; i++){
 		const optionItem =  document.createElement('option')
+		optionItem.setAttribute('value', arrayData.data[i].region.province)
 		optionItem.textContent =  arrayData.data[i].region.province;
 
 		$(selectOptionsEl).append(optionItem);
 	}
 
+	$('#dropdownStates').change(function (){
+		selectedStateOnChange();
+		refreshDiv();
+		displayStats();
+	});
 }
+
+function refreshDiv () {
+	$("#stats-container").empty();
+}
+
+function stateDefault() {
+	getCovid("Washington");
+};
+stateDefault();
+
+
+function displayStats(stateData){
+	console.log(stateData);
+
+	const statsHeaderEl = $("<div>");
+	$(statsHeaderEl).addClass('card-header text-center');
+	$(statsHeaderEl).text( "Statistics Updated: " + stateData.data[0].date);
+	
+	const statsListEl = $('<ul>');
+	$(statsListEl).addClass("list-group list-group-flush text-center");
+
+	const statListActive = $("<li>")
+	$(statListActive).addClass("list-group-item");
+	$(statListActive).text("Active Cases:  " + stateData.data[0].active);
+
+	const statListTotal = $("<li>");
+	$(statListTotal).addClass("list-group-item");
+	$(statListTotal).text("Total Deaths:  " + stateData.data[0].deaths);
+	
+	const statListFatality= $("<li>")
+	$(statListFatality).addClass("list-group-item");
+	$(statListFatality).text("Fatality Rate:  " + stateData.data[0].fatality_rate);
+
+
+	// append list items to list 
+	$(statsListEl).append([statListActive, statListTotal, statListFatality])
+
+	// display on HTML
+	$(statsEl).append(statsHeaderEl, statsHeaderEl, statsListEl)
+	
+}
+
+
+
 // **sectyion 2 start
 
 var carouselImgEl = document.getElementById('free-to-play-carousel');
@@ -44,7 +122,7 @@ const valueGenreArrey = text.split(" ");
 
 // makes the drop down options dynamic
 function dropdownMenueMaker() {
-console.log(valueGenreArrey);
+// console.log(valueGenreArrey);
 
 for (let i = 0; i < valueGenreArrey.length; i++) {
 	const dropdownOptionEl = $("<option>");
@@ -76,12 +154,19 @@ dropdownMenueMaker();
 		 "headers": {
 			 "x-rapidapi-host": "free-to-play-games-database.p.rapidapi.com",
 			 "x-rapidapi-key": "7762a46affmsh847d232c8c0054bp190086jsnefdc4c528d13"
-		 }
+		 }, 
+		 "error": function(error){
+			console.log(error.status);
+			generateModal(error.sttus);
+		},
 	 };
 
 	 // response from game api in jquery
-	 $.ajax(settings).done(function (response) {
+	 $.ajax(settings).done(function (response, status) {
 		// removes the previous carousel so that it wont stack and keep adding more on top of each other
+		console.log(status);
+		// console.log(error);
+		// console.log(status);
 		$("#free-to-play-carousel").empty();
 		 // choses first ten array of objects
 		 for (let i = 0; i < Math.min(response.length, 10); i++) {
@@ -170,7 +255,7 @@ function dropDownSelection(){
 function initDisplay() {
 	// retrieving saved item from local storage
 	let pizza = localStorage.getItem("game-history")
-	console.log(pizza)
+//	console.log(pizza)
 	// seeting a default case for the api url endpoint
 	if(pizza === null){
 		apiFreeToPlayRequest("shooter");
@@ -205,7 +290,7 @@ fetch(testAPi, {
     return response.json();
   })
   .then(function (response) {
-    console.log(response);
+    //  console.log(response);
 
     for (var i = 0; i < 50; i++) {
       // Display in HTML
@@ -213,10 +298,9 @@ fetch(testAPi, {
     }
   })
   .catch(function (error) {
-    console.log("error")
 	
 	// make function call passing error
-	generateModal(error)
+	generateModal(error);
   });
 
 //   Modal generating function
@@ -258,7 +342,7 @@ function generateCarouselEl(responseItem, index) {
   imgItem.setAttribute("src", responseItem.thumbnail);
   imgItem.setAttribute("alt", responseItem.title);
 
-  console.log("Image created ", imgItem, index);
+  // console.log("Image created ", imgItem, index);
 
   var descriptionEL = document.createElement('div');
   descriptionEL.setAttribute("class", "carousel-caption");

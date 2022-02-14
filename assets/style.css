@@ -20,3 +20,10 @@ img {
 #copyright{
     background-color: rgba(0, 0, 0, 0.2);
 }
+.covidStatsEl {
+    list-style: none;
+}
+#stats-container {
+    width: 100%;
+    font-size: x-large;
+}
