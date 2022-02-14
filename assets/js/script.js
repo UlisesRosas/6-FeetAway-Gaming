@@ -1,6 +1,6 @@
 const covidApi = "https://covid-19-statistics.p.rapidapi.com/reports?iso=USA&region_name=US";
 let selectOptionsEl = $("#dropdownStates")
-let statsEl = $("#covidStats");
+let statsEl = $("#stats-container");
 
 fetch(covidApi, {
 	"method": "GET",
@@ -21,7 +21,7 @@ fetch(covidApi, {
 	}
 })
 .catch(err => {
-	console.error(err)
+	console.log(err)
 	
 });
 
@@ -69,42 +69,43 @@ function generateOptions(apiData, arrayData){
 	});
 }
 
-function stateDefaultValue () {
-	getCovid("Washington");
-	console.log("hello");
-};
-stateDefaultValue();
-
-
-function refreshDiv() {
-	$("#covidStats").empty();
+function refreshDiv () {
+	$("#stats-container").empty();
 }
 
 
 function displayStats(stateData){
 	console.log(stateData);
 
-	const statsListEl = document.createElement('ol');
+	const statsHeaderEl = $("<div>");
+	$(statsHeaderEl).addClass('card-header text-center');
+	$(statsHeaderEl).text( "Statistics Updated: " + stateData.data[0].date);
+	
+	const statsListEl = $('<ul>');
+	$(statsListEl).addClass("list-group list-group-flush text-center");
 
-	const dateListEl = document.createElement('li');
-	dateListEl.textContent = "Date: " + stateData.data[0].date;
+	const statListActive = $("<li>")
+	$(statListActive).addClass("list-group-item");
+	$(statListActive).text("Active Cases:  " + stateData.data[0].active);
 
-	const activeCasesEl = document.createElement('li');
-	activeCasesEl.textContent = "Active Cases:  " + stateData.data[0].active;
+	const statListTotal = $("<li>");
+	$(statListTotal).addClass("list-group-item");
+	$(statListTotal).text("Total Deaths:  " + stateData.data[0].deaths);
+	
+	const statListFatality= $("<li>")
+	$(statListFatality).addClass("list-group-item");
+	$(statListFatality).text("Fatality Rate:  " + stateData.data[0].fatality_rate);
 
-	const deathRateEl = document.createElement('li');
-	deathRateEl.textContent = "Total Deaths:  " + stateData.data[0].deaths;
 
-	const fatalityRateEl = document.createElement('li');
-	fatalityRateEl.textContent = "Fatality Rate:  " + stateData.data[0].fatality_rate;
+	// append list items to list 
+	$(statsListEl).append([statListActive, statListTotal, statListFatality])
 
-	statsListEl.appendChild(dateListEl);
-	statsListEl.appendChild(activeCasesEl);
-	statsListEl.appendChild(deathRateEl);
-	statsListEl.appendChild(fatalityRateEl);
-	statsListEl.classList.add("covidStatsEl")
-	$(statsEl).append(statsListEl);
+	// display on HTML
+	$(statsEl).append(statsHeaderEl, statsHeaderEl, statsListEl)
+	
 }
+
+
 
 // **sectyion 2 start
 
@@ -148,12 +149,19 @@ dropdownMenueMaker();
 		 "headers": {
 			 "x-rapidapi-host": "free-to-play-games-database.p.rapidapi.com",
 			 "x-rapidapi-key": "7762a46affmsh847d232c8c0054bp190086jsnefdc4c528d13"
-		 }
+		 }, 
+		 "error": function(error){
+			console.log(error.status);
+			generateModal(error.sttus);
+		},
 	 };
 
 	 // response from game api in jquery
-	 $.ajax(settings).done(function (response) {
+	 $.ajax(settings).done(function (response, status) {
 		// removes the previous carousel so that it wont stack and keep adding more on top of each other
+		console.log(status);
+		// console.log(error);
+		// console.log(status);
 		$("#free-to-play-carousel").empty();
 		 // choses first ten array of objects
 		 for (let i = 0; i < Math.min(response.length, 10); i++) {
@@ -285,10 +293,9 @@ fetch(testAPi, {
     }
   })
   .catch(function (error) {
-    console.log("error")
 	
 	// make function call passing error
-	generateModal(error)
+	generateModal(error);
   });
 
 //   Modal generating function
