@@ -59,19 +59,20 @@ function generateOptions(apiData, arrayData){
 		optionItem.textContent =  arrayData.data[i].region.province;
 
 		$(selectOptionsEl).append(optionItem);
-	}
-
+	};
 	$('#dropdownStates').change(function (){
-		refreshDiv()
-		displayStats()
-	});
+		displayStats(arrayData)
+		refreshDiv();
+	});	
 }
+
 
 function refreshDiv () {
 	$("#stats-container").empty();
 }
 
 function displayStats(stateData){
+
 	console.log(stateData);
 
 	const statsHeaderEl = $("<div>");
