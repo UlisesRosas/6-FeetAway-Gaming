@@ -1,5 +1,6 @@
 const covidApi = "https://covid-19-statistics.p.rapidapi.com/reports?iso=USA&region_name=US";
 let selectOptionsEl = $("#dropdownStates")
+let statsEl = $("#covidStats");
 
 fetch(covidApi, {
 	"method": "GET",
@@ -15,7 +16,7 @@ fetch(covidApi, {
 			.then(function (data) {
 				// display on HTML 
 				generateOptions(data, data);
-                console.log(data);
+              //  console.log(data);
 			});
 	}
 })
@@ -34,9 +35,11 @@ function getCovid(state) {
 		}
 	}).then(function (response) {
 		if(response.ok) {
+			console.log(response);
 			response.json()
 			.then(function (data){
 				console.log(data, 38);
+				displayStats(data);
 			})
 		}
 	})
@@ -50,7 +53,7 @@ function selectedStateOnChange() {
 }
 
 function generateOptions(apiData, arrayData){ 
-	console.log(apiData);
+//	console.log(apiData);
 	for (let i = 0; i < arrayData.data.length; i++){
 		const optionItem =  document.createElement('option')
 		optionItem.setAttribute('value', arrayData.data[i].region.province)
@@ -59,9 +62,49 @@ function generateOptions(apiData, arrayData){
 		$(selectOptionsEl).append(optionItem);
 	}
 
-} 
-// will call selectStatesonCange function When dropdown is selected
-// $(selectOptionsEl).on('change', selectedStateOnChange)
+	$('#dropdownStates').change(function (){
+		// selectedStateOnChange();
+		refreshDiv();
+		displayStats();
+	});
+}
+
+function stateDefaultValue () {
+	getCovid("Washington");
+	console.log("hello");
+};
+stateDefaultValue();
+
+
+function refreshDiv() {
+	$("#covidStats").empty();
+}
+
+
+function displayStats(stateData){
+	console.log(stateData);
+
+	const statsListEl = document.createElement('ol');
+
+	const dateListEl = document.createElement('li');
+	dateListEl.textContent = "Date: " + stateData.data[0].date;
+
+	const activeCasesEl = document.createElement('li');
+	activeCasesEl.textContent = "Active Cases:  " + stateData.data[0].active;
+
+	const deathRateEl = document.createElement('li');
+	deathRateEl.textContent = "Total Deaths:  " + stateData.data[0].deaths;
+
+	const fatalityRateEl = document.createElement('li');
+	fatalityRateEl.textContent = "Fatality Rate:  " + stateData.data[0].fatality_rate;
+
+	statsListEl.appendChild(dateListEl);
+	statsListEl.appendChild(activeCasesEl);
+	statsListEl.appendChild(deathRateEl);
+	statsListEl.appendChild(fatalityRateEl);
+	statsListEl.classList.add("covidStatsEl")
+	$(statsEl).append(statsListEl);
+}
 
 // **sectyion 2 start
 
@@ -73,7 +116,7 @@ const valueGenreArrey = text.split(" ");
 
 // makes the drop down options dynamic
 function dropdownMenueMaker() {
-console.log(valueGenreArrey);
+// console.log(valueGenreArrey);
 
 for (let i = 0; i < valueGenreArrey.length; i++) {
 	const dropdownOptionEl = $("<option>");
@@ -199,7 +242,7 @@ function dropDownSelection(){
 function initDisplay() {
 	// retrieving saved item from local storage
 	let pizza = localStorage.getItem("game-history")
-	console.log(pizza)
+//	console.log(pizza)
 	// seeting a default case for the api url endpoint
 	if(pizza === null){
 		apiFreeToPlayRequest("shooter");
@@ -234,7 +277,7 @@ fetch(testAPi, {
     return response.json();
   })
   .then(function (response) {
-    console.log(response);
+    //  console.log(response);
 
     for (var i = 0; i < 50; i++) {
       // Display in HTML
@@ -287,7 +330,7 @@ function generateCarouselEl(responseItem, index) {
   imgItem.setAttribute("src", responseItem.thumbnail);
   imgItem.setAttribute("alt", responseItem.title);
 
-  console.log("Image created ", imgItem, index);
+  // console.log("Image created ", imgItem, index);
 
   var descriptionEL = document.createElement('div');
   descriptionEL.setAttribute("class", "carousel-caption");
