@@ -1,0 +1,65 @@
+
+/* section2 style start */
+.select-dropdown {
+    width: 100%;
+} 
+.image-width {
+    width: 100%;
+}
+/* adds depth to the carousel */
+.back-shadow {
+    box-shadow: 0 20px 15px 0 rgb(0 0 0 / 30%), 0 2px 10px 0 rgb(0 0 0 / 15%);
+}
+/* section2 style end */
+img {
+    width: 100%;
+}
+#dropdownStates {
+    width: 100%;
+}
+#copyright{
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.covidStatsEl {
+    list-style: none;
+}
+#stats-container {
+    width: 100%;
+    font-size: x-large;
+}
+
+/* NavBar_Section 1 */
+.kiwiDragon {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    transition: ease-in-out;
+}
+.kiwiDragonCommander {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 650;
+}
+.kiwiDragonCommander:hover {
+    cursor: pointer;
+    color: black;
+    text-shadow: 0 0 5px blueviolet, 0 0 10px royalblue, 0 0 15px red;
+    transition: ease-in-out;
+}
+.nav-link:hover {
+    cursor: pointer;
+    color: black;
+    font-weight: bold;   
+    text-shadow: 0 0 5px royalblue, 0 0 10px pink, 0 0 15px paleturquoise;
+    transition: ease;
+}
+.sunflowerTaco {
+    background-image: linear-gradient(royalblue, blueviolet, red);
+  }
+  .lemonPinecone {
+    border-radius: 0% 0% 25px 25px;
+  }
+  .cheesePupusa {
+    border-radius: 25px 25px 25px 25px;
+  }
