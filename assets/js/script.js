@@ -63,7 +63,7 @@ function generateOptions(apiData, arrayData){
 	}
 
 	$('#dropdownStates').change(function (){
-		// selectedStateOnChange();
+		selectedStateOnChange();
 		refreshDiv();
 		displayStats();
 	});
@@ -72,6 +72,11 @@ function generateOptions(apiData, arrayData){
 function refreshDiv () {
 	$("#stats-container").empty();
 }
+
+function stateDefault() {
+	getCovid("Washington");
+};
+stateDefault();
 
 
 function displayStats(stateData){
