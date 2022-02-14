@@ -48,8 +48,8 @@ function getCovid(state) {
 function selectedStateOnChange() {
 	let selectedState = selectOptionsEl[0].value;
 	console.log(selectedState);
-	getCovid(selectedState);
-
+	getCovid(selectedState); 
+	stateTitleMaker(selectedState)
 }
 
 function generateOptions(apiData, arrayData){ 
@@ -58,13 +58,14 @@ function generateOptions(apiData, arrayData){
 		const optionItem =  document.createElement('option')
 		optionItem.setAttribute('value', arrayData.data[i].region.province)
 		optionItem.textContent =  arrayData.data[i].region.province;
-
+		
 		$(selectOptionsEl).append(optionItem);
 	};
 	$('#dropdownStates').change(function (){
 		selectedStateOnChange();
 		displayStats(arrayData);
 		refreshDiv();
+		
 	});
 }
 
@@ -78,36 +79,51 @@ function stateDefault() {
 };
 stateDefault();
 
+// makes div with the selected states name
+function stateTitleMaker(selectedState) {
+let stateNamEl = $('<h1>');
+stateNamEl.text(selectedState);
+stateNamEl.addClass('card-header text-center')
+$('.chosen-state-container').append(stateNamEl);
+console.log(stateNamEl);
+};
 
-function displayStats(stateData){
+function displayStats(stateData, optionItem){
+	console.log(optionItem);
 
-	console.log(stateData);
+	// const statsHeaderEl = $("<div>");
+	// $(statsHeaderEl).addClass('card-header text-center');
+	// $(statsHeaderEl).text( "Statistics Updated: " + stateData.data[0].date);
+	
+	const statsListEl = $('<div>');
+	$(statsListEl).addClass("list-group list-group-flush text-center container");
 
 	const statsHeaderEl = $("<div>");
-	$(statsHeaderEl).addClass('card-header text-center');
+	$(statsHeaderEl).addClass('card-header list-group-item text-center');
 	$(statsHeaderEl).text( "Statistics Updated: " + stateData.data[0].date);
-	
-	const statsListEl = $('<ul>');
-	$(statsListEl).addClass("list-group list-group-flush text-center");
 
-	const statListActive = $("<li>")
+	const statListActive = $("<div>")
 	$(statListActive).addClass("list-group-item");
 	$(statListActive).text("Active Cases:  " + stateData.data[0].active);
-
-	const statListTotal = $("<li>");
+	// container #2 for other half of content
+	const secondHalfContainerRow = $('<div>')
+	$(secondHalfContainerRow).addClass("list-group list-group-flush text-center container");
+	
+	const statListTotal = $("<div>");
 	$(statListTotal).addClass("list-group-item");
 	$(statListTotal).text("Total Deaths:  " + stateData.data[0].deaths);
 	
-	const statListFatality= $("<li>")
+	const statListFatality= $("<div>")
 	$(statListFatality).addClass("list-group-item");
 	$(statListFatality).text("Fatality Rate:  " + stateData.data[0].fatality_rate);
 
+	// display on HTML 
+	$(statsEl).append([statsListEl, secondHalfContainerRow]);
 
 	// append list items to list 
-	$(statsListEl).append([statListActive, statListTotal, statListFatality])
+	$(statsListEl).append([statsHeaderEl, statListActive]);
+	$(secondHalfContainerRow).append([statListTotal, statListFatality]);
 
-	// display on HTML
-	$(statsEl).append(statsHeaderEl, statsHeaderEl, statsListEl)
 	
 }
 
