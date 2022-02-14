@@ -84,22 +84,22 @@ function displayStats(stateData){
 	console.log(stateData);
 
 	const statsHeaderEl = $("<div>");
-	$(statsHeaderEl).addClass('card-header text-center');
+	$(statsHeaderEl).addClass('card-header text-center btn-dark');
 	$(statsHeaderEl).text( "Statistics Updated: " + stateData.data[0].date);
 	
 	const statsListEl = $('<ul>');
-	$(statsListEl).addClass("list-group list-group-flush text-center");
+	$(statsListEl).addClass("list-group list-group-flush text-center btn-dark");
 
 	const statListActive = $("<li>")
-	$(statListActive).addClass("list-group-item");
+	$(statListActive).addClass("list-group-item btn-dark");
 	$(statListActive).text("Active Cases:  " + stateData.data[0].active);
 
 	const statListTotal = $("<li>");
-	$(statListTotal).addClass("list-group-item");
+	$(statListTotal).addClass("list-group-item btn-dark");
 	$(statListTotal).text("Total Deaths:  " + stateData.data[0].deaths);
 	
 	const statListFatality= $("<li>")
-	$(statListFatality).addClass("list-group-item");
+	$(statListFatality).addClass("list-group-item btn-dark");
 	$(statListFatality).text("Fatality Rate:  " + stateData.data[0].fatality_rate);
 
 
