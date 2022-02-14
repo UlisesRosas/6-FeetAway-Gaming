@@ -35,6 +35,7 @@ function getCovid(state) {
 		}
 	}).then(function (response) {
 		if(response.ok) {
+			console.log(response);
 			response.json()
 			.then(function (data){
 				console.log(data, 38);
@@ -61,15 +62,22 @@ function generateOptions(apiData, arrayData){
 		$(selectOptionsEl).append(optionItem);
 	};
 	$('#dropdownStates').change(function (){
-		displayStats(arrayData)
+		selectedStateOnChange();
+		displayStats(arrayData);
 		refreshDiv();
-	});	
+	});
 }
 
 
 function refreshDiv () {
 	$("#stats-container").empty();
 }
+
+function stateDefault() {
+	getCovid("Washington");
+};
+stateDefault();
+
 
 function displayStats(stateData){
 
