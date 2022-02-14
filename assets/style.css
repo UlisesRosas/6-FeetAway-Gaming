@@ -33,4 +33,11 @@ img {
     position: sticky;
     top: 0;
     z-index: 100;
+    font-family: 'Roboto', sans-serif;
+}
+.nav-link:hover {
+    cursor: pointer;
+    color: black;
+    font-weight: bold;   
+    text-shadow: 0 0 5px whitesmoke, 0 0 10px red, 0 0 15px blue;
 }
