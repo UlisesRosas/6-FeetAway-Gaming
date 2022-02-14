@@ -193,7 +193,7 @@ function generateFreeToPlayCarouselEl(gameThumbnail, gameUrl, response, index) {
 	// setting the atributes to API response data
 	imgItem.setAttribute("src", gameThumbnail);
 	imgItem.setAttribute("alt", response.title);
-	imgItem.setAttribute("class", "image-width");
+	imgItem.setAttribute("class", "image-width lemonPinecone");
 	// creating anchor element
 	var anchor = document.createElement("a");
 	// setting anchor attribute to be API response url
@@ -333,6 +333,7 @@ function generateCarouselEl(responseItem, index) {
   var imgItem = document.createElement('img');
   imgItem.setAttribute("src", responseItem.thumbnail);
   imgItem.setAttribute("alt", responseItem.title);
+  $(imgItem).attr('class','cheesePupusa');
 
   // console.log("Image created ", imgItem, index);
 
