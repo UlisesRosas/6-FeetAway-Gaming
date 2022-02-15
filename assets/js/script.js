@@ -96,25 +96,28 @@ function displayStats(stateData, optionItem){
 	// $(statsHeaderEl).text( "Statistics Updated: " + stateData.data[0].date);
 	
 	const statsListEl = $('<div>');
-	$(statsListEl).addClass("list-group list-group-flush text-center container");
+	$(statsListEl).addClass("row mx-auto list-group-flush text-center container btn-dark");
+	// $(statsListEl).addClass("list-group list-group-flush text-center container btn-dark");
 
 	const statsHeaderEl = $("<div>");
-	$(statsHeaderEl).addClass('card-header list-group-item text-center');
+	$(statsHeaderEl).addClass('col-6 card-header list-group-item text-center btn-dark');
 	$(statsHeaderEl).text( "Statistics Updated: " + stateData.data[0].date);
+	// $(statsHeaderEl).addClass('card-header list-group-item text-center btn-dark');
 
 	const statListActive = $("<div>")
-	$(statListActive).addClass("list-group-item");
+	$(statListActive).addClass("col-6 list-group-item btn-dark");
 	$(statListActive).text("Active Cases:  " + stateData.data[0].active);
+	// $(statListActive).addClass("list-group-item btn-dark");
 	// container #2 for other half of content
 	const secondHalfContainerRow = $('<div>')
-	$(secondHalfContainerRow).addClass("list-group list-group-flush text-center container");
+	$(secondHalfContainerRow).addClass("mx-auto row list-group-flush text-center container btn-dark");
 	
 	const statListTotal = $("<div>");
-	$(statListTotal).addClass("list-group-item");
+	$(statListTotal).addClass("col-6 list-group-item btn-dark");
 	$(statListTotal).text("Total Deaths:  " + stateData.data[0].deaths);
 	
 	const statListFatality= $("<div>")
-	$(statListFatality).addClass("list-group-item");
+	$(statListFatality).addClass("col-6 list-group-item btn-dark");
 	$(statListFatality).text("Fatality Rate:  " + stateData.data[0].fatality_rate);
 
 	// display on HTML 
