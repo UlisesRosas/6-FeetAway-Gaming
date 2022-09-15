@@ -1,4 +1,4 @@
-# squintspiders-try-2
+# squintspiders
 - Gaming and finding covid stats website
 
 # Purpose
