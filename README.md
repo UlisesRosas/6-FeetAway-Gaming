@@ -20,7 +20,7 @@ Project 1 - Api App. It's an app that shows you Covid-19 stats and then gives yo
 *HTML *CSS *JavaScript
 
 # Website
-https://ulisesrosas.github.io/squintspiders-try-2/
+ https://ulisesrosas.github.io/6-FeetAway-Gaming/
 ![Api](./assets/images/free-to-play-games-api.png "Title")
 ![Api](./assets/images/image.png "Title") 
 ![Website](./assets/images/6FeetGaming.png "Title") 
